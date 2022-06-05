@@ -9,9 +9,7 @@ public class Spawner : MonoBehaviour
     [SerializeField] private float _spawnDelay = 2f;
 
     private Coroutine _spawnJob;
-
     private bool _isSpawn;
-
     private int _currentSpawnPoint = -1;
 
     private void Awake()
@@ -38,18 +36,6 @@ public class Spawner : MonoBehaviour
             StopCoroutine(_spawnJob);
     }
 
-    private IEnumerator SpawnCoroutine(float spawnDelay)
-    {
-        var awaiter = new WaitForSeconds(spawnDelay);
-
-        while(_isSpawn)
-        {
-            SpawnNextEnemy();
-
-            yield return awaiter;
-        }
-    }
-
     private void StopSpawn()
     {
         _isSpawn = false;
@@ -70,5 +56,17 @@ public class Spawner : MonoBehaviour
         Quaternion spawnRotation = point.rotation;
 
         Instantiate(_enemy, spawnPosition, spawnRotation);
+    }
+
+    private IEnumerator SpawnCoroutine(float spawnDelay)
+    {
+        var awaiter = new WaitForSeconds(spawnDelay);
+
+        while(_isSpawn)
+        {
+            SpawnNextEnemy();
+
+            yield return awaiter;
+        }
     }
 }

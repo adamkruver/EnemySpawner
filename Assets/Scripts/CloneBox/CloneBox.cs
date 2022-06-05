@@ -8,13 +8,6 @@ public class CloneBox : MonoBehaviour
 {
     [SerializeField] private UnityEvent<bool> IsInside;
 
-    private BoxCollider _doorCollider;
-
-    private void Awake() 
-    {
-        _doorCollider = GetComponent<BoxCollider>();
-    }
-
     private void OnTriggerEnter(Collider other) 
     {
         if(other.TryGetComponent<IDoorOpenable>(out IDoorOpenable unit))

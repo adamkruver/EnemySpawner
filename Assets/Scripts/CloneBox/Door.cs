@@ -10,16 +10,13 @@ public class Door : MonoBehaviour
     [SerializeField] private AudioClip _openingDoorAudio;
     [SerializeField] private AudioClip _closingDoorAudio;
 
-    private AudioSource _audioSource;
-
-
     private readonly float _closedPosition = -.1f;
     private readonly float _openedPosition = 2.7f;
-
     private readonly Vector3 _moveDirection = Vector3.up;
-    private Vector3 _startPosition;
 
     private Coroutine _moveJob;
+    private AudioSource _audioSource;
+    private Vector3 _startPosition;
 
     private void Start() 
     {
@@ -49,17 +46,6 @@ public class Door : MonoBehaviour
         _lamp?.SetState(Lamp.State.Releasing);
     }
 
-    private IEnumerator ChangingPositionCoroutine(float _destinationPosition)
-    {
-        Vector3 destenation = _startPosition + _moveDirection * _destinationPosition;
-
-        while(transform.position != destenation)
-        {
-            transform.position = Vector3.MoveTowards(transform.position, destenation, _speed * Time.deltaTime);
-            yield return null;
-        }
-    }
-
     private void StartJob(float targetPosition)
     {
         if(_moveJob != null)
@@ -73,4 +59,15 @@ public class Door : MonoBehaviour
         _audioSource?.Stop();
         _audioSource?.PlayOneShot(audioClip);
     }    
+
+    private IEnumerator ChangingPositionCoroutine(float _destinationPosition)
+    {
+        Vector3 destenation = _startPosition + _moveDirection * _destinationPosition;
+
+        while(transform.position != destenation)
+        {
+            transform.position = Vector3.MoveTowards(transform.position, destenation, _speed * Time.deltaTime);
+            yield return null;
+        }
+    }
 }

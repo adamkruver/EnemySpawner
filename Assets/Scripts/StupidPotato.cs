@@ -5,5 +5,4 @@ using UnityEngine;
 [RequireComponent(typeof(Rigidbody))]
 public class StupidPotato : MonoBehaviour, IDoorOpenable
 {
-    
 }
